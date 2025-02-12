@@ -33,21 +33,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.Telegram && Telegram.WebApp) {
+            // Проверяем, доступен ли Telegram WebApp
+            if (window.Telegram && window.Telegram.WebApp) {
+                // Инициализируем WebApp
                 Telegram.WebApp.ready(); 
+
+                // Уведомление о успешной инициализации
                 alert("✅ Telegram WebApp загружен!");
 
                 console.log("Telegram WebApp успешно загружен!");
                 console.log("Платформа:", Telegram.WebApp.platform);
                 console.log("isExpanded:", Telegram.WebApp.isExpanded);
 
+                // Обновляем сообщение на экране
                 document.querySelector('.message').innerText = "Приложение успешно запущено в Telegram!";
 
+                // Добавляем обработчик для кнопки "Закрыть приложение"
                 document.getElementById('closeBtn').addEventListener('click', () => {
                     alert("Попытка закрытия WebApp...");
                     Telegram.WebApp.close();
                 });
             } else {
+                // Ошибка, если приложение не загружено в Telegram
                 alert("❌ Telegram.WebApp не загружен! Возможно, вы открыли страницу вне Telegram.");
                 document.querySelector('.message').innerText = "Ошибка: откройте приложение через Telegram!";
             }
