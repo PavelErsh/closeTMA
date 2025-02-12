@@ -35,17 +35,27 @@
         document.addEventListener('DOMContentLoaded', () => {
             if (window.Telegram && Telegram.WebApp) {
                 Telegram.WebApp.ready(); // Инициализируем WebApp
+                alert("Telegram WebApp загружен!");
 
                 console.log("Telegram WebApp успешно загружен!");
                 console.log("Платформа:", Telegram.WebApp.platform);
                 console.log("isExpanded:", Telegram.WebApp.isExpanded);
 
+                alert(`Платформа: ${Telegram.WebApp.platform}, isExpanded: ${Telegram.WebApp.isExpanded}`);
+
                 // Обработчик кнопки закрытия
                 document.getElementById('closeBtn').addEventListener('click', () => {
-                    Telegram.WebApp.close();
+                    alert("Попытка закрытия приложения...");
+                    if (Telegram.WebApp.close) {
+                        Telegram.WebApp.close();
+                        alert("WebApp закрыт!");
+                    } else {
+                        alert("Ошибка: Метод Telegram.WebApp.close() не найден!");
+                    }
                 });
             } else {
                 console.error("Telegram.WebApp не загружен! Возможно, приложение открыто не через Telegram.");
+                alert("Ошибка: Telegram.WebApp не загружен! Приложение открыто не через Telegram.");
                 document.querySelector('.message').innerText = "Приложение открыто не через Telegram!";
             }
         });
