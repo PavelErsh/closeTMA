@@ -23,19 +23,23 @@
 <body>
     <div class="message">Приложение закроется через 5 секунд...</div>
     <script>
-        // Ждем 5 секунд и закрываем приложение
-        setTimeout(() => {
+        document.addEventListener('DOMContentLoaded', () => {
             if (window.Telegram && Telegram.WebApp) {
-                // Проверяем, готов ли объект WebApp
-                if (Telegram.WebApp.ready) {
-                    Telegram.WebApp.close();
-                } else {
-                    alert("WebApp не готов к закрытию.");
-                }
+                console.log("Telegram.WebApp успешно загружен!");
+
+                // Ждем 5 секунд и закрываем приложение
+                setTimeout(() => {
+                    if (Telegram.WebApp.ready) {
+                        Telegram.WebApp.close();
+                    } else {
+                        alert("WebApp не готов к закрытию.");
+                    }
+                }, 5000); // 5000 миллисекунд = 5 секунд
             } else {
+                console.error("Telegram.WebApp не загружен! Возможно, приложение открыто не через Telegram.");
                 alert("Приложение открыто не через Telegram.");
             }
-        }, 5000); // 5000 миллисекунд = 5 секунд
+        });
     </script>
 </body>
 </html>
