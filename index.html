@@ -28,35 +28,28 @@
     </style>
 </head>
 <body>
-    <div class="message">Приложение открылось через Telegram</div>
+    <div class="message">Загрузка Telegram WebApp...</div>
     <button id="closeBtn">Закрыть приложение</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.Telegram && Telegram.WebApp) {
-                Telegram.WebApp.ready(); // Инициализируем WebApp
-                alert("Telegram WebApp загружен!");
+                Telegram.WebApp.ready(); 
+                alert("✅ Telegram WebApp загружен!");
 
                 console.log("Telegram WebApp успешно загружен!");
                 console.log("Платформа:", Telegram.WebApp.platform);
                 console.log("isExpanded:", Telegram.WebApp.isExpanded);
 
-                alert(`Платформа: ${Telegram.WebApp.platform}, isExpanded: ${Telegram.WebApp.isExpanded}`);
+                document.querySelector('.message').innerText = "Приложение успешно запущено в Telegram!";
 
-                // Обработчик кнопки закрытия
                 document.getElementById('closeBtn').addEventListener('click', () => {
-                    alert("Попытка закрытия приложения...");
-                    if (Telegram.WebApp.close) {
-                        Telegram.WebApp.close();
-                        alert("WebApp закрыт!");
-                    } else {
-                        alert("Ошибка: Метод Telegram.WebApp.close() не найден!");
-                    }
+                    alert("Попытка закрытия WebApp...");
+                    Telegram.WebApp.close();
                 });
             } else {
-                console.error("Telegram.WebApp не загружен! Возможно, приложение открыто не через Telegram.");
-                alert("Ошибка: Telegram.WebApp не загружен! Приложение открыто не через Telegram.");
-                document.querySelector('.message').innerText = "Приложение открыто не через Telegram!";
+                alert("❌ Telegram.WebApp не загружен! Возможно, вы открыли страницу вне Telegram.");
+                document.querySelector('.message').innerText = "Ошибка: откройте приложение через Telegram!";
             }
         });
     </script>
