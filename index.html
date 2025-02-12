@@ -22,15 +22,18 @@
 </head>
 <body>
     <div class="message">Приложение закроется через 5 секунд...</div>
-
     <script>
         // Ждем 5 секунд и закрываем приложение
         setTimeout(() => {
-            // Используем метод Telegram WebApp для закрытия
             if (window.Telegram && Telegram.WebApp) {
-                Telegram.WebApp.close();
+                // Проверяем, готов ли объект WebApp
+                if (Telegram.WebApp.ready) {
+                    Telegram.WebApp.close();
+                } else {
+                    alert("WebApp не готов к закрытию.");
+                }
             } else {
-                alert("Приложение будет закрыто.");
+                alert("Приложение открыто не через Telegram.");
             }
         }, 5000); // 5000 миллисекунд = 5 секунд
     </script>
